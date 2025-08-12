@@ -5,5 +5,5 @@ export default async function Products({
   }) {
     const  productId  = (await params).ProductId
     console.log(productId)
-    return <div>My Post:{productId}</div>
+    return <p>My Product:{productId}</p>
   }
