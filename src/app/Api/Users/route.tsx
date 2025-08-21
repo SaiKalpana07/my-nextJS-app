@@ -1,19 +1,15 @@
-// import { NextResponse } from "next/server";
+import { type NextRequest } from "next/server";
+import { users } from "../data";
 
-// export async function GET() {
-//   return NextResponse.json({
-//     hello: "world",
-//   });
-// }
+export async function GET(request: NextRequest) {
 
-
-export async function GET(request: Request) {
-  const users = [
-    { id: 1, name: "Alice" },
-    { id: 2, name: "Bob" },
-  ];
-  return new Response(JSON.stringify(users), {
-    status: 200,
-    headers: { "Content-type": "application/json" },
-  });
+  const searchParams = request.nextUrl.searchParams
+  const query = searchParams.get("query")
+  const filterData = query ? users.filter((user) => user.name.includes(query) || user.id.includes(query)) : users
+  return Response.json(filterData)
+ 
+  // return new Response(JSON.stringify(users), {
+  //   status: 200,
+  //   headers: { "Content-type": "application/json" },
+  // });
 }
